@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form Validation</title>
+</head>
+
+<body>
+    <form action="#" onsubmit="validateForm()" id="forms">
+
+        <label for="fname">Enter the name</label><br><br>
+        <input type="text" id="fname" placeholder="Enter Name"><br><br>
+
+        <label for="mail">Enter the Email</label><br><br>
+        <input type="text" id="mail" placeholder="Enter mail"><br><br>
+
+
+        <input type="submit" value="Add Name and mail">
+        <button type="button" onclick="showUsers()">Show users</button>
+
+    </form>
+
+
+
+</body>
+<script>
+    var users = [];
+
+    function validateForm() {
+        let name = document.getElementById('fname').value.trim();
+        let mail = document.getElementById('mail').value.trim();
+
+        let mailPatter = /^([a-z A-Z 0-9-\.]+)@([a-z A-z 0-9]+).([a-z A-Z]{2,3})(.[a-z A-Z]{2,3})?$/
+
+
+
+        if (!/[a-zA-z ]+$/.test(name)) {
+            alert('Only alphabets are allowed');
+        }
+        if (!mailPatter.test(mail)) {
+            alert('error please enter the valid mail');
+        }
+        else {
+            let userDetails = {};
+
+            userDetails['name'] = name;
+            userDetails['mail'] = mail;
+            userDetails['timeStamp'] = new Date();
+            console.log(users);
+
+            users.push(userDetails);
+
+            sessionStorage.setItem('users', JSON.stringify(users));
+            document.getElementById('forms').reset();
+        }
+
+
+    }
+
+    function showUsers() {
+
+        let allUsers = JSON.parse(sessionStorage.getItem('users'));
+
+        allUsers.forEach( element => {
+            console.log('The user Name is : ' + element['name'] + '\t the mail is ' + element['mail'] + ' \t and the timestamp is ' + element['timeStamp']);
+        });
+
+
+    }
+</script>
+
+</html>
