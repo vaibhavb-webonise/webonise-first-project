@@ -1,0 +1,51 @@
+
+
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <button onclick="openWin()">Open window</button>
+    <button onclick="stopClosing()">stop closing windows</button>
+
+    <script>
+        var myWindow = [];
+        var i = 0;
+        var winID;
+
+        function closeWindows()
+        {
+            i--; 
+            console.log(i+1 +' window closed');
+            myWindow[i].close();
+            
+            if( i == 0)
+            {
+                clearInterval(winID);
+                alert('all windows closed successfully stopped');
+
+            }
+            
+        }
+        function openWin() {
+            for (let i = 0; i < 5; i++) {
+                let mwindow = window.open('http://www.google.com', '_blank');
+                myWindow.push(mwindow);
+            }
+            i = myWindow.length;
+            winID = window.setInterval(closeWindows,3000);
+           
+         }
+        
+        function stopClosing()
+        {
+            alert('window auto closing stopped successfully '+ i +' windows remained to closed');
+            console.log();
+            clearInterval(winID);
+        }
+
+    </script>
+
+</body>
+
+</html>
